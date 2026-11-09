@@ -1,0 +1,17 @@
+{
+  "name": "BESSA AI TRADER",
+  "short_name": "BESSA TRADER",
+  "description": "Painel de inteligência e simulação de mercado",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090e1b",
+  "theme_color": "#0b1020",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
