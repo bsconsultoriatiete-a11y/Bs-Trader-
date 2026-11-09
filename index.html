@@ -2,120 +2,115 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090e1b"><meta name="description" content="BESSA AI TRADER — cotações reais e trading simulado.">
+<meta name="theme-color" content="#090e1b"><meta name="description" content="BESSA AI TRADER V3 — estratégias automatizadas em paper trading.">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>BESSA AI TRADER V2</title>
+<title>BESSA AI TRADER V3</title>
 <style>
-:root{--bg:#090e1b;--panel:#111a2c;--panel2:#172238;--line:#26344d;--muted:#93a4bd;--text:#f3f6fc;--green:#35d39a;--red:#ff667d;--gold:#d8b66a;--blue:#72a9ff}
+:root{--bg:#090e1b;--panel:#111a2c;--line:#26344d;--muted:#93a4bd;--text:#f3f6fc;--green:#35d39a;--red:#ff667d;--gold:#d8b66a;--blue:#72a9ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b2a49 0%,var(--bg) 55%);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:1100px;margin:auto;padding:16px 13px 42px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:5px 0 17px}.brand{display:flex;gap:10px;align-items:center}.logo{width:43px;height:43px;border:1px solid #927c4e;border-radius:13px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:19px;background:linear-gradient(145deg,#20283a,#0d1423)}h1{font-size:16px;letter-spacing:1px;margin:0}.sub{font-size:9px;letter-spacing:1.1px;color:var(--muted)}.pill{border:1px solid #276e59;color:#73e2b6;background:#103328;padding:6px 9px;border-radius:99px;font-size:10px;white-space:nowrap}
+.wrap{max-width:1120px;margin:auto;padding:16px 13px 44px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:5px 0 17px}.brand{display:flex;gap:10px;align-items:center}.logo{width:43px;height:43px;border:1px solid #927c4e;border-radius:13px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:19px;background:linear-gradient(145deg,#20283a,#0d1423)}h1{font-size:16px;letter-spacing:1px;margin:0}.sub{font-size:9px;letter-spacing:1.1px;color:var(--muted)}.pill{border:1px solid #276e59;color:#73e2b6;background:#103328;padding:6px 9px;border-radius:99px;font-size:10px;white-space:nowrap}
 .hero,.card{background:linear-gradient(145deg,var(--panel),#0f1727);border:1px solid var(--line);border-radius:17px;padding:14px;margin-bottom:12px}.hero{background:linear-gradient(120deg,#17243b,#101827);padding:18px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:1.4px;font-weight:800}.hero h2{font-size:23px;margin:6px 0}.muted,.hint{color:var(--muted)}.hero p{margin:0;color:#a9b7cc;font-size:12px}.nav{display:flex;gap:7px;overflow:auto;margin-top:15px}.nav a{white-space:nowrap;text-decoration:none;color:#aebbd0;border:1px solid var(--line);padding:7px 10px;border-radius:99px;font-size:11px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:12px}.metric{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:12px}.label{font-size:10px;color:var(--muted)}.value{font-size:20px;font-weight:800;margin-top:3px}.green{color:var(--green)}.red{color:var(--red)}
 .section{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.section h3{font-size:14px;margin:0}.hint{font-size:10px}
-button,input,select{font:inherit}button{border:0;border-radius:10px;padding:10px 12px;background:var(--green);color:#071710;font-weight:800;font-size:12px;cursor:pointer}button.secondary{background:#24334c;color:#e5edfa;border:1px solid #354763}button:disabled{opacity:.45}
+button,input,select{font:inherit}button{border:0;border-radius:10px;padding:10px 12px;background:var(--green);color:#071710;font-weight:800;font-size:12px;cursor:pointer}button.secondary{background:#24334c;color:#e5edfa;border:1px solid #354763}button.danger{background:#3a1e2a;color:#ff9eaa;border:1px solid #633043}button:disabled{opacity:.45}
 input,select{background:#0b1322;border:1px solid #30415d;border-radius:10px;padding:10px;color:var(--text);width:100%}label{font-size:10px;color:var(--muted)}
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.controls .wide{grid-column:1/-1}
-.tablehead,.coinrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(80px,1fr) minmax(75px,.8fr);gap:8px;align-items:center}.tablehead{font-size:9px;color:var(--muted);padding:7px 3px;border-bottom:1px solid var(--line)}.coinrow{padding:10px 3px;border-bottom:1px solid #202c40}.coinrow:last-child{border:0}.coinname{display:flex;align-items:center;gap:8px;min-width:0}.coinname img{width:25px;height:25px;border-radius:50%;background:#25344c}.coinname b{font-size:11px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.coinname small{font-size:9px;color:var(--muted)}.num{text-align:right;font-size:11px;font-weight:650}.change{text-align:right;font-size:10px}.positive{color:var(--green)}.negative{color:var(--red)}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.notice{border:1px solid #66542d;background:#2a2417;color:#e8d6a9;padding:10px;border-radius:11px;font-size:10px;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #202c40;font-size:11px}.row:last-child{border:0}.agent{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #202c40;font-size:11px}.status{font-size:9px;color:#d7c28f}.empty{text-align:center;padding:18px;color:var(--muted);font-size:11px}.smallbtn{padding:7px 9px;font-size:10px}footer{text-align:center;color:#687991;font-size:9px;padding:20px 5px}
-@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.layout{display:grid;grid-template-columns:1.3fr .7fr;gap:12px}.hero h2{font-size:29px}}
+.tablehead,.coinrow{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(80px,1fr) minmax(65px,.7fr);gap:7px;align-items:center}.tablehead{font-size:9px;color:var(--muted);padding:7px 3px;border-bottom:1px solid var(--line)}.coinrow{padding:9px 3px;border-bottom:1px solid #202c40}.coinname{display:flex;align-items:center;gap:7px;min-width:0}.coinname img{width:24px;height:24px;border-radius:50%;background:#25344c}.coinname b{font-size:11px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.coinname small{font-size:9px;color:var(--muted)}.num{text-align:right;font-size:10px;font-weight:650}.change{text-align:right;font-size:10px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.notice{border:1px solid #66542d;background:#2a2417;color:#e8d6a9;padding:10px;border-radius:11px;font-size:10px;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #202c40;font-size:11px}.row:last-child{border:0}.agent{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #202c40;font-size:11px}.agent:last-child{border:0}.status{font-size:9px;color:#d7c28f}.empty{text-align:center;padding:18px;color:var(--muted);font-size:11px}.smallbtn{padding:7px 9px;font-size:10px}.switchrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0}.switch{accent-color:#35d39a;width:18px;height:18px}.signal{border:1px solid var(--line);border-radius:10px;padding:9px;margin:7px 0;background:#0c1525}.signal b{font-size:11px}.signal small{color:var(--muted);display:block;font-size:10px;margin-top:3px}.tag{font-size:9px;padding:3px 6px;border-radius:99px;background:#26334a;color:#c6d7f2}.tag.buy{background:#123a2d;color:#79e2b5}.tag.sell{background:#421f2c;color:#ff9dad}.tag.wait{background:#342d1d;color:#e7d39b}footer{text-align:center;color:#687991;font-size:9px;padding:20px 5px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.layout{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}.hero h2{font-size:29px}}
 </style></head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><div class="logo">B</div><div><h1>BESSA AI TRADER</h1><div class="sub">AUTONOMOUS MARKET INTELLIGENCE · V2.0</div></div></div><span class="pill">● PAPER TRADING</span></header>
-<section class="hero"><div class="eyebrow">VERSÃO 2.0 · RADAR AO VIVO</div><h2>Mercado real. Dinheiro fictício.</h2><p>Cotações públicas de criptoativos em BRL. Compras e vendas continuam exclusivamente simuladas.</p><div class="nav"><a href="#overview">Painel</a><a href="#radar">Radar</a><a href="#trade">Simulador</a><a href="#agents">Agentes</a><a href="#history">Histórico</a></div></section>
+<header class="top"><div class="brand"><div class="logo">B</div><div><h1>BESSA AI TRADER</h1><div class="sub">AUTONOMOUS MARKET INTELLIGENCE · V3.0</div></div></div><span class="pill">● PAPER TRADING</span></header>
+<section class="hero"><div class="eyebrow">V3.0 · QUANT STRATEGY ENGINE</div><h2>Estratégias automáticas. Risco controlado.</h2><p>Agentes baseados em regras analisam cotações públicas e podem operar somente na carteira fictícia.</p><div class="nav"><a href="#overview">Painel</a><a href="#radar">Radar</a><a href="#engine">Motor</a><a href="#agents">Agentes</a><a href="#history">Histórico</a></div></section>
 <section id="overview" class="grid">
 <div class="metric"><div class="label">Saldo virtual</div><div class="value" id="cash">R$ 10.000,00</div><div class="hint">Capital fictício</div></div>
-<div class="metric"><div class="label">Patrimônio virtual</div><div class="value" id="equity">R$ 10.000,00</div><div class="hint">Caixa + posições marcadas a mercado</div></div>
-<div class="metric"><div class="label">Resultado não realizado + realizado</div><div class="value" id="pnl">R$ 0,00</div><div class="hint">Desde o início</div></div>
+<div class="metric"><div class="label">Patrimônio virtual</div><div class="value" id="equity">R$ 10.000,00</div><div class="hint">Caixa + posições</div></div>
+<div class="metric"><div class="label">Resultado total</div><div class="value" id="pnl">R$ 0,00</div><div class="hint">Realizado + não realizado</div></div>
 <div class="metric"><div class="label">Operações</div><div class="value" id="trades">0</div><div class="hint">Simuladas</div></div></section>
 <div class="layout"><main>
+<section class="card" id="engine"><div class="section"><h3>Motor automático equilibrado</h3><span class="pill">SOMENTE SIMULAÇÃO</span></div>
+<div class="switchrow"><div><b>Execução automática</b><div class="hint">Avalia o mercado a cada 15 minutos enquanto esta página estiver aberta.</div></div><input id="autoToggle" class="switch" type="checkbox" aria-label="Ativar trading simulado automático"></div>
+<div class="controls"><div><label for="riskMode">Perfil</label><select id="riskMode"><option value="balanced">Equilibrado</option><option value="conservative">Conservador</option><option value="aggressive">Agressivo (simulado)</option></select></div><div><label for="maxPositions">Máx. posições abertas</label><select id="maxPositions"><option>3</option><option selected>5</option><option>8</option></select></div></div>
+<div class="grid" style="margin-bottom:5px"><div class="metric"><div class="label">Exposição atual</div><div class="value" id="exposure">R$ 0,00</div></div><div class="metric"><div class="label">Perda diária</div><div class="value" id="dailyLoss">R$ 0,00</div></div></div>
+<div class="actions"><button id="runNow">Executar análise agora</button><button id="pause" class="secondary">Pausar motor</button></div>
+<div class="notice">Automação funciona somente enquanto esta página permanece aberta e conectada. O navegador pode suspender tarefas em segundo plano. Nenhuma ordem real é enviada.</div>
+<div class="section" style="margin-top:14px"><h3>Decisões recentes</h3><span class="hint" id="engineStatus">Aguardando dados</span></div><div id="signals"><div class="empty">Carregue o radar para iniciar a análise.</div></div></section>
 <section class="card" id="radar"><div class="section"><h3>Radar de criptoativos</h3><span class="hint" id="feedStatus">Aguardando consulta</span></div>
-<div class="controls"><div><label for="search">Buscar ativo</label><input id="search" placeholder="Nome ou símbolo"></div><div><label for="sort">Ordenar por</label><select id="sort"><option value="market_cap_desc">Valor de mercado</option><option value="price_change_percentage_24h_desc">Maior alta 24h</option><option value="price_change_percentage_24h_asc">Maior queda 24h</option><option value="volume_desc">Volume 24h</option></select></div><div><label>Moeda de exibição</label><input value="BRL (R$)" disabled></div><div style="display:flex;align-items:end;gap:6px"><button id="refresh" class="secondary" style="flex:1">Atualizar</button><button id="loadMore" class="secondary" style="flex:1">Carregar mais</button></div></div>
-<div class="tablehead"><span>ATIVO</span><span style="text-align:right">PREÇO</span><span style="text-align:right">24H</span></div><div id="marketRows" class="empty">Toque em Atualizar para carregar o mercado.</div>
-<div class="hint" id="pageInfo" style="margin-top:8px">Fonte: CoinGecko public API. Lista paginada; universo disponível depende da fonte e dos limites de acesso.</div></section>
-<section class="card" id="trade"><div class="section"><h3>Simulador de operações</h3><span class="pill">SEM DINHEIRO REAL</span></div>
-<div class="formgrid"><div><label for="assetSelect">Ativo (carregado no radar)</label><select id="assetSelect"><option value="">Carregue o radar primeiro</option></select></div><div><label for="qty">Quantidade</label><input id="qty" type="number" min="0.00000001" step="any" value="0.001"></div></div>
-<div class="hint" id="tradeEstimate">Preço e valor estimado aparecerão após carregar os ativos.</div><div class="actions"><button id="buy">Comprar simulado</button><button id="sell" class="secondary">Vender posição</button></div>
-<div class="notice">Cotações fornecidas pela API pública CoinGecko e podem atrasar, falhar ou sofrer limites de requisição. Simulação não inclui spread, slippage ou taxas reais. Nenhuma ordem é enviada a corretoras.</div></section>
+<div class="controls"><div><label for="search">Buscar ativo</label><input id="search" placeholder="Nome ou símbolo"></div><div><label for="sort">Ordenar por</label><select id="sort"><option value="market_cap_desc">Valor de mercado</option><option value="price_change_percentage_24h_desc">Maior alta 24h</option><option value="price_change_percentage_24h_asc">Maior queda 24h</option><option value="volume_desc">Volume 24h</option></select></div><div><label for="currency">Moeda</label><select id="currency"><option value="brl">BRL (R$)</option><option value="usd">USD ($)</option></select></div><div style="display:flex;align-items:end;gap:6px"><button id="refresh" class="secondary" style="flex:1">Atualizar</button><button id="loadMore" class="secondary" style="flex:1">Carregar mais</button></div></div>
+<div class="tablehead"><span>ATIVO</span><span style="text-align:right">PREÇO</span><span style="text-align:right">24H</span></div><div id="marketRows" class="empty">Consultando mercado…</div><div class="hint" id="pageInfo" style="margin-top:8px">Fonte: CoinGecko. Universo e limites dependem do provedor.</div></section>
 </main><aside>
-<section class="card" id="agents"><div class="section"><h3>Central de agentes</h3><span class="hint">V2.0</span></div>
-<div class="agent"><span>01 · Radar de mercado</span><b class="status">Dados reais</b></div><div class="agent"><span>02 · Analista técnico</span><b class="status">Planejado</b></div><div class="agent"><span>03 · Fundamentalista</span><b class="status">Planejado</b></div><div class="agent"><span>04 · Notícias</span><b class="status">Planejado</b></div><div class="agent"><span>05 · Quantitativo</span><b class="status">Planejado</b></div><div class="agent"><span>06 · Estrategista</span><b class="status">Planejado</b></div><div class="agent"><span>07 · Gestor de risco</span><b class="status">Regras básicas</b></div><div class="agent"><span>08 · Auditor</span><b class="status">Histórico local</b></div></section>
-<section class="card" id="history"><div class="section"><h3>Histórico</h3><button id="reset" class="smallbtn" style="background:#3a1e2a;color:#ff9eaa">Zerar</button></div><div id="historyRows" class="empty">Nenhuma operação.</div></section>
+<section class="card" id="agents"><div class="section"><h3>Agentes do sistema</h3><span class="hint">Regras quant V3</span></div>
+<div class="agent"><span>01 · Radar de oportunidades</span><b class="status" id="a1">Ativo</b></div><div class="agent"><span>02 · Tendência / momentum</span><b class="status" id="a2">Aguardando</b></div><div class="agent"><span>03 · Reversão / correção</span><b class="status" id="a3">Aguardando</b></div><div class="agent"><span>04 · Liquidez e volume</span><b class="status" id="a4">Aguardando</b></div><div class="agent"><span>05 · Quantitativo / score</span><b class="status" id="a5">Aguardando</b></div><div class="agent"><span>06 · Estrategista</span><b class="status" id="a6">Aguardando</b></div><div class="agent"><span>07 · Gestor de risco</span><b class="status">Proteção fixa</b></div><div class="agent"><span>08 · Auditor</span><b class="status">Registro local</b></div>
+<div class="notice">Estes agentes são módulos algorítmicos determinísticos, não modelos de IA generativa. Eles aplicam regras explícitas e não aprendem sozinhos.</div></section>
 <section class="card"><div class="section"><h3>Posições virtuais</h3></div><div id="positions" class="empty">Nenhuma posição aberta.</div></section>
-</aside></div><footer>BESSA AI TRADER V2.0 · Cotações públicas · Trading simulado · Não é recomendação de investimento.</footer></div>
+<section class="card" id="history"><div class="section"><h3>Histórico</h3><button id="reset" class="smallbtn danger">Zerar simulação</button></div><div id="historyRows" class="empty">Nenhuma operação.</div></section>
+</aside></div><footer>BESSA AI TRADER V3.0 · Paper trading · Sem conexão com corretoras · Não é recomendação de investimento.</footer></div>
 <script>
 (()=>{
-const API='https://api.coingecko.com/api/v3/coins/markets';
-const INITIAL=10000, stateKey='bessa-paper-v2';
-const fmt=(n,cur)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:cur.toUpperCase(),maximumFractionDigits:cur==='brl'?2:6}).format(n||0);
-const qtyFmt=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:10});
-let state;try{state=JSON.parse(localStorage.getItem(stateKey))}catch(e){}
-if(!state)state={cash:INITIAL,positions:{},history:[]};
-let coins=[],page=1,loading=false,hasMore=true;
-const save=()=>localStorage.setItem(stateKey,JSON.stringify(state));
-const currency=()=>'brl';
-const coin=id=>coins.find(c=>c.id===id);
-const price=id=>{const c=coin(id);return c?Number(c.current_price):null};
-const fmtCash=n=>fmt(n,'brl');
-function portfolioValue(){return Object.entries(state.positions).reduce((s,[id,p])=>s+p.qty*(price(id)??p.lastPrice??0),0)}
-function renderStats(){let total=state.cash+portfolioValue();document.getElementById('cash').textContent=fmtCash(state.cash);document.getElementById('equity').textContent=fmtCash(total);let pnl=total-INITIAL;let el=document.getElementById('pnl');el.textContent=fmtCash(pnl);el.className='value '+(pnl>=0?'green':'red');document.getElementById('trades').textContent=state.history.length}
-function renderMarket(){
- const term=document.getElementById('search').value.toLowerCase().trim(), sort=document.getElementById('sort').value;
- let arr=coins.filter(c=>(c.name+' '+c.symbol).toLowerCase().includes(term));
- if(sort==='price_change_percentage_24h_desc')arr.sort((a,b)=>(b.price_change_percentage_24h||-999)-(a.price_change_percentage_24h||-999));
- else if(sort==='price_change_percentage_24h_asc')arr.sort((a,b)=>(a.price_change_percentage_24h||999)-(b.price_change_percentage_24h||999));
- else if(sort==='volume_desc')arr.sort((a,b)=>(b.total_volume||0)-(a.total_volume||0));
- else arr.sort((a,b)=>(b.market_cap||0)-(a.market_cap||0));
- document.getElementById('marketRows').innerHTML=arr.length?arr.map(c=>{
- let p=c.current_price;
- let pct=c.price_change_percentage_24h;
- return `<div class="coinrow"><div class="coinname">${c.image?`<img src="${c.image}" alt="" loading="lazy">`:'<span>●</span>'}<div><b>${c.name}</b><small>${c.symbol.toUpperCase()} · #${c.market_cap_rank||'—'}</small></div></div><div class="num">${fmt(p,currency())}</div><div class="change ${pct>=0?'positive':'negative'}">${pct==null?'—':(pct>=0?'+':'')+pct.toFixed(2)+'%'}</div></div>`}).join(''):'<div class="empty">Nenhum ativo encontrado. Tente atualizar ou limpar a busca.</div>';
- const sel=document.getElementById('assetSelect'),old=sel.value;
- sel.innerHTML=coins.map(c=>`<option value="${c.id}">${c.name} (${c.symbol.toUpperCase()})</option>`).join('')||'<option value="">Carregue o radar primeiro</option>';
- if(coins.some(c=>c.id===old))sel.value=old;
- renderEstimate();renderPositions();renderStats();
+const API='https://api.coingecko.com/api/v3/coins/markets', KEY='bessa-paper-v3', INITIAL=10000, CYCLE=15*60*1000;
+const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2}).format(n||0), qfmt=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:8});
+let state;try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!state)state={cash:INITIAL,positions:{},history:[],realized:0,dayStart:INITIAL,dayKey:new Date().toISOString().slice(0,10),auto:false,lastCycle:0};
+let coins=[],page=1,hasMore=true,loading=false,timer=null,signals=[];
+const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+const cur=()=> $('currency').value;
+const getCoin=id=>coins.find(c=>c.id===id);
+const px=id=>{let c=getCoin(id);return c?Number(c.current_price_brl):null};
+const posValue=()=>Object.entries(state.positions).reduce((s,[id,p])=>s+p.qty*(px(id)??p.lastPrice),0);
+const equity=()=>state.cash+posValue();
+const exposure=()=>posValue();
+function dayReset(){let d=new Date().toISOString().slice(0,10);if(state.dayKey!==d){state.dayKey=d;state.dayStart=equity();save()}}
+function stats(){dayReset();$('cash').textContent=money(state.cash);$('equity').textContent=money(equity());let p=equity()-INITIAL;$('pnl').textContent=money(p);$('pnl').className='value '+(p>=0?'green':'red');$('trades').textContent=state.history.length;$('exposure').textContent=money(exposure());$('dailyLoss').textContent=money(Math.max(0,state.dayStart-equity()));}
+function renderMarket(){let term=$('search').value.toLowerCase().trim(),arr=coins.filter(c=>(c.name+' '+c.symbol).toLowerCase().includes(term)),s=$('sort').value;
+if(s==='price_change_percentage_24h_desc')arr.sort((a,b)=>(b.price_change_percentage_24h||-999)-(a.price_change_percentage_24h||-999));else if(s==='price_change_percentage_24h_asc')arr.sort((a,b)=>(a.price_change_percentage_24h||999)-(b.price_change_percentage_24h||999));else if(s==='volume_desc')arr.sort((a,b)=>(b.total_volume||0)-(a.total_volume||0));else arr.sort((a,b)=>(b.market_cap||0)-(a.market_cap||0));
+$('marketRows').innerHTML=arr.length?arr.map(c=>`<div class="coinrow"><div class="coinname"><img src="${c.image||''}" alt="" loading="lazy"><div><b>${c.name}</b><small>${c.symbol.toUpperCase()} · #${c.market_cap_rank||'—'}</small></div></div><div class="num">${new Intl.NumberFormat('pt-BR',{style:'currency',currency:cur().toUpperCase(),maximumFractionDigits:cur()==='brl'?2:6}).format(cur()==='brl'?c.current_price:c.current_price_usd||0)}</div><div class="change ${(c.price_change_percentage_24h||0)>=0?'green':'red'}">${c.price_change_percentage_24h==null?'—':(c.price_change_percentage_24h>=0?'+':'')+c.price_change_percentage_24h.toFixed(2)+'%'}</div></div>`).join(''):'<div class="empty">Sem ativos carregados. Atualize o radar.</div>';
+renderPositions();stats();}
+function renderPositions(){$('positions').innerHTML=Object.entries(state.positions).length?Object.entries(state.positions).map(([id,p])=>{let c=getCoin(id),v=px(id)??p.lastPrice;return `<div class="row"><span><b>${c?.name||p.name||id}</b><br><span class="hint">${qfmt(p.qty)} unidades · entrada ${money(p.entry)}</span></span><b>${money(v*p.qty)}</b></div>`}).join(''):'<div class="empty">Nenhuma posição aberta.</div>'}
+function renderHistory(){$('historyRows').innerHTML=state.history.length?[...state.history].reverse().slice(0,30).map(t=>`<div class="row"><span><b>${t.side} ${t.symbol}</b><br><span class="hint">${t.reason} · ${new Date(t.date).toLocaleString('pt-BR')}</span></span><span style="text-align:right">${money(t.amount)}<br><span class="hint">${qfmt(t.qty)}</span></span></div>`).join(''):'<div class="empty">Nenhuma operação simulada.</div>'}
+async function load(reset=false){if(loading||(!hasMore&&!reset))return;loading=true;$('feedStatus').textContent='Consultando CoinGecko…';if(reset){page=1;coins=[];hasMore=true}
+try{let url=`${API}?vs_currency=${cur()}&order=market_cap_desc&per_page=250&page=${page}&sparkline=false&price_change_percentage=24h%2C7d%2C30d`;
+let r=await fetch(url,{headers:{accept:'application/json'}});if(!r.ok)throw Error(r.status===429?'Limite da API (429). Aguarde alguns minutos.':`Fonte respondeu ${r.status}.`);let d=await r.json();if(!Array.isArray(d))throw Error('Resposta inválida da fonte.');
+// Convert market quote to BRL for portfolio when USD view is selected using an approximate USD/BRL rate from CoinGecko global data is not fetched here; paper trading is therefore locked to BRL.
+if(cur()==='brl')coins=coins.concat(d.map(c=>({...c,current_price_brl:c.current_price})));
+else coins=coins.concat(d.map(c=>({...c,current_price_brl:null,current_price_usd:c.current_price})));
+hasMore=d.length===250;page++;$('feedStatus').textContent=`Atualizado ${new Date().toLocaleTimeString('pt-BR')} · ${coins.length} ativos`;$('pageInfo').textContent=`CoinGecko · ${coins.length} ativos carregados · página ${page-1}. Carregue mais para avançar.`;renderMarket();}catch(e){$('feedStatus').textContent='Falha na consulta';$('marketRows').innerHTML=`<div class="empty">${e.message}</div>`}finally{loading=false}}
+function score(c){let d1=c.price_change_percentage_24h??0,d7=c.price_change_percentage_7d_in_currency??c.price_change_percentage_7d??0,d30=c.price_change_percentage_30d_in_currency??c.price_change_percentage_30d??0,vol=c.total_volume||0,cap=c.market_cap||1,liq=vol/cap;
+let trend=(d1>0&&d7>0&&d30>0)?2:(d1>0&&d7>0)?1:0;
+let momentum=Math.max(-2,Math.min(2,(d1/5)+(d7/15)));
+let liquidity=liq>0.03?1:liq>0.01?0.5:0;
+let correction=(d1< -2&&d7>1&&d30>0)?1:0;
+return {score:trend+momentum+liquidity+correction,d1,d7,d30,liq,trend,correction};}
+function riskLimits(){let mode=$('riskMode').value;return mode==='conservative'?{maxExposure:.25,perTrade:.04,maxPositions:3,stop:.025,take:.05,daily:.01,minScore:3.2}:mode==='aggressive'?{maxExposure:.65,perTrade:.10,maxPositions:8,stop:.05,take:.10,daily:.025,minScore:2.2}:{maxExposure:.45,perTrade:.07,maxPositions:5,stop:.035,take:.07,daily:.015,minScore:2.8}}
+function log(side,c,qty,amount,reason){state.history.push({side,id:c.id,symbol:c.symbol.toUpperCase(),qty,amount,reason,date:new Date().toISOString()})}
+function sellPosition(id,c,reason){let p=state.positions[id];if(!p||!c)return;let price=c.current_price_brl,amount=price*p.qty;state.cash+=amount;state.realized+=(price-p.entry)*p.qty;log('VENDA',c,p.qty,amount,reason);delete state.positions[id];}
+function runEngine(){
+ if(!coins.length){$('engineStatus').textContent='Sem dados';return}
+ let lim=riskLimits(),eq=equity(),dailyLoss=Math.max(0,state.dayStart-eq),maxDaily=state.dayStart*lim.daily,notes=[];
+ $('a1').textContent='Varredura concluída';$('a2').textContent='Momentum calculado';$('a3').textContent='Correções avaliadas';$('a4').textContent='Liquidez avaliada';$('a5').textContent='Score calculado';$('a6').textContent='Regras aplicadas';
+ if(dailyLoss>=maxDaily){$('engineStatus').textContent='Bloqueado: limite diário';$('signals').innerHTML='<div class="signal"><b>Proteção acionada</b><small>Limite diário de perda simulado atingido. Novas compras bloqueadas.</small></div>';return}
+ // Manage existing positions first: protective stop/take profit or negative trend exit.
+ for(let [id,p] of Object.entries({...state.positions})){let c=getCoin(id);if(!c)continue;let current=c.current_price_brl,ret=(current-p.entry)/p.entry,s=score(c);if(ret<=-lim.stop)sellPosition(id,c,'Stop simulado');else if(ret>=lim.take)sellPosition(id,c,'Alvo simulado');else if(s.score<0.2&&s.d1<0)sellPosition(id,c,'Sinal de saída');}
+ eq=equity();let maxPos=Math.min(Number($('maxPositions').value),lim.maxPositions);
+ let candidates=coins.filter(c=>c.current_price_brl>0&&c.market_cap_rank&&c.market_cap_rank<=500&&c.total_volume>0).map(c=>({c,s:score(c)})).sort((a,b)=>b.s.score-a.s.score);
+ for(let {c,s} of candidates.slice(0,12)){
+  let existing=state.positions[c.id];
+  let action='AGUARDAR',reason=`Score ${s.score.toFixed(2)} · 24h ${s.d1.toFixed(2)}% · 7d ${s.d7.toFixed(2)}%`;
+  if(!existing&&s.score>=lim.minScore&&Object.keys(state.positions).length<maxPos){
+   let currentExposure=exposure(),maxAllowed=eq*lim.maxExposure,notional=Math.min(eq*lim.perTrade,maxAllowed-currentExposure,state.cash);
+   if(notional>=50){let qty=notional/c.current_price_brl;state.cash-=notional;state.positions[c.id]={qty,entry:c.current_price_brl,lastPrice:c.current_price_brl,name:c.name,opened:new Date().toISOString()};log('COMPRA',c,qty,notional,'Entrada automática · '+reason);action='COMPRA SIMULADA';}
+  }
+  notes.push({name:c.name,symbol:c.symbol.toUpperCase(),score:s.score,action,reason});
+ }
+ signals=notes.slice(0,8);$('signals').innerHTML=signals.length?signals.map(n=>`<div class="signal"><div style="display:flex;justify-content:space-between;gap:6px"><b>${n.name} (${n.symbol})</b><span class="tag ${n.action.startsWith('COMPRA')?'buy':'wait'}">${n.action}</span></div><small>${n.reason}</small></div>`).join(''):'<div class="empty">Nenhum sinal neste ciclo.</div>';
+ state.lastCycle=Date.now();save();renderHistory();renderMarket();$('engineStatus').textContent='Análise concluída '+new Date().toLocaleTimeString('pt-BR');
 }
-function renderEstimate(){let id=document.getElementById('assetSelect').value,q=Number(document.getElementById('qty').value),p=price(id);document.getElementById('tradeEstimate').textContent=p==null?'Preço indisponível. Atualize o radar.':`Preço: ${fmt(p,currency())} · Valor estimado: ${fmt(p*q,currency())}. O saldo simulado é mantido em reais (BRL).`}
-function renderHistory(){let el=document.getElementById('historyRows');el.innerHTML=state.history.length?[...state.history].reverse().map(t=>`<div class="row"><span><b>${t.side} ${t.symbol}</b><br><span class="hint">${new Date(t.date).toLocaleString('pt-BR')}</span></span><span style="text-align:right">${fmt(t.amount,'brl')}<br><span class="hint">${qtyFmt(t.qty)}</span></span></div>`).join(''):'<div class="empty">Nenhuma operação.</div>'}
-function renderPositions(){let el=document.getElementById('positions'),entries=Object.entries(state.positions);el.innerHTML=entries.length?entries.map(([id,p])=>{let c=coin(id),v=price(id);return `<div class="row"><span><b>${c?c.name:p.name||id}</b><br><span class="hint">${qtyFmt(p.qty)} unidades</span></span><b>${fmt(v==null?p.qty*p.lastPrice:p.qty*v,'brl')}</b></div>`}).join(''):'<div class="empty">Nenhuma posição aberta.</div>'}
-async function loadPage(reset=false){
- if(loading||(!hasMore&&!reset))return;loading=true;
- const status=document.getElementById('feedStatus');status.textContent='Consultando CoinGecko…';
- if(reset){page=1;coins=[];hasMore=true}
- const cur='brl';
- try{
-  const url=`${API}?vs_currency=${cur}&order=market_cap_desc&per_page=250&page=${page}&sparkline=false&price_change_percentage=24h`;
-  const res=await fetch(url,{headers:{accept:'application/json'}});
-  if(!res.ok)throw new Error(res.status===429?'Limite temporário de consultas (429). Aguarde e tente novamente.':`Falha da fonte (${res.status}).`);
-  const data=await res.json();if(!Array.isArray(data))throw new Error('Resposta inesperada da fonte.');
-  const mapped=data.map(c=>({...c,current_price_brl:cur==='brl'?c.current_price:null,current_price_usd:cur==='usd'?c.current_price:null}));
-  if(cur==='brl')coins=coins.concat(mapped);else coins=coins.concat(mapped);
-  hasMore=data.length===250;page++;
-  status.textContent=`Atualizado ${new Date().toLocaleTimeString('pt-BR')} · ${coins.length} ativos`;
-  document.getElementById('pageInfo').textContent=`Fonte: CoinGecko · ${coins.length} ativos carregados nesta moeda. Use “Carregar mais” para buscar a próxima página. A cobertura depende da disponibilidade e dos limites da API.`;
-  renderMarket();
- }catch(e){status.textContent='Não foi possível atualizar';document.getElementById('marketRows').innerHTML=`<div class="empty">${e.message}<br>Verifique a conexão e tente novamente mais tarde.</div>`}
- finally{loading=false}
-}
-function trade(side){
- const id=document.getElementById('assetSelect').value,c=coin(id),q=Number(document.getElementById('qty').value),p=price(id);
- if(!c||!Number.isFinite(q)||q<=0||p==null){alert('Selecione um ativo carregado e uma quantidade válida.');return}
- 
- const amount=q*p,held=state.positions[id]?.qty||0;
- if(side==='COMPRA'){if(amount>state.cash){alert('Saldo virtual insuficiente.');return}state.cash-=amount;let old=state.positions[id]||{qty:0,name:c.name,lastPrice:p};old.qty+=q;old.lastPrice=p;old.name=c.name;state.positions[id]=old}
- else{if(q>held){alert('Quantidade maior que a posição virtual disponível.');return}state.cash+=amount;state.positions[id].qty-=q;if(state.positions[id].qty<1e-12)delete state.positions[id]}
- state.history.push({side,symbol:c.symbol.toUpperCase(),id,qty:q,amount,date:new Date().toISOString()});save();renderHistory();renderMarket();
-}
-document.getElementById('refresh').onclick=()=>loadPage(true);
-document.getElementById('loadMore').onclick=()=>loadPage(false);
-document.getElementById('search').oninput=renderMarket;
-document.getElementById('sort').onchange=renderMarket;
-
-document.getElementById('assetSelect').onchange=renderEstimate;
-document.getElementById('qty').oninput=renderEstimate;
-document.getElementById('buy').onclick=()=>trade('COMPRA');
-document.getElementById('sell').onclick=()=>trade('VENDA');
-document.getElementById('reset').onclick=()=>{if(confirm('Apagar operações e posições virtuais?')){state={cash:INITIAL,positions:{},history:[]};save();renderHistory();renderMarket()}};
-renderStats();renderHistory();loadPage(true);
-if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+function startAuto(){stopAuto();state.auto=true;save();$('autoToggle').checked=true;$('engineStatus').textContent='Automação simulada ligada';runEngine();timer=setInterval(async()=>{await load(true);runEngine()},CYCLE)}
+function stopAuto(){if(timer)clearInterval(timer);timer=null;state.auto=false;save();$('autoToggle').checked=false;$('engineStatus').textContent='Motor pausado'}
+$('refresh').onclick=()=>load(true);$('loadMore').onclick=()=>load(false);$('search').oninput=renderMarket;$('sort').onchange=renderMarket;
+$('currency').onchange=()=>{if(cur()==='usd'){alert('O simulador opera somente em BRL. O radar em USD está disponível para consulta. Para atualizar a carteira, volte para BRL.')}load(true)};
+$('runNow').onclick=runEngine;$('autoToggle').onchange=e=>e.target.checked?startAuto():stopAuto();$('pause').onclick=stopAuto;
+$('riskMode').onchange=()=>{$('engineStatus').textContent='Perfil atualizado. Próxima análise aplicará os novos limites.'};
+$('reset').onclick=()=>{if(confirm('Apagar posições, histórico e saldo virtual?')){stopAuto();state={cash:INITIAL,positions:{},history:[],realized:0,dayStart:INITIAL,dayKey:new Date().toISOString().slice(0,10),auto:false,lastCycle:0};save();renderHistory();renderMarket()}};
+stats();renderHistory();load(true);
 })();
 </script></body></html>

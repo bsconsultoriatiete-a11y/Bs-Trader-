@@ -1,7 +1,7 @@
 {
   "name": "BESSA AI TRADER",
   "short_name": "BESSA TRADER",
-  "description": "Cotações públicas e trading simulado",
+  "description": "Estratégias automatizadas em paper trading",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#090e1b",
