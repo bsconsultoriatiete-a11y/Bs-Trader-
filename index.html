@@ -1,175 +1,121 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="BESSA AI TRADER — painel de inteligência e simulação de mercado.">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <title>BESSA AI TRADER</title>
-  <style>
-    :root{--bg:#090e1b;--panel:#111a2c;--panel2:#172238;--line:#26344d;--muted:#93a4bd;--text:#f3f6fc;--green:#35d39a;--red:#ff667d;--gold:#d8b66a;--blue:#72a9ff}
-    *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b2a49 0%,var(--bg) 55%);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-    .wrap{max-width:1050px;margin:auto;padding:18px 14px 40px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 18px}
-    .brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border:1px solid #927c4e;border-radius:13px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:18px;background:linear-gradient(145deg,#20283a,#0d1423)}
-    h1{font-size:17px;letter-spacing:1.2px;margin:0}.sub{font-size:10px;color:var(--muted);letter-spacing:1.3px}
-    .pill{border:1px solid #276e59;color:#73e2b6;background:#103328;padding:6px 10px;border-radius:999px;font-size:11px;white-space:nowrap}
-    .hero{background:linear-gradient(120deg,#17243b,#101827);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
-    .eyebrow{color:var(--gold);font-size:11px;letter-spacing:1.5px;font-weight:700}.hero h2{font-size:24px;margin:6px 0}.hero p{margin:0;color:#a9b7cc;font-size:13px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
-    .card{background:linear-gradient(145deg,var(--panel),#0f1727);border:1px solid var(--line);border-radius:16px;padding:14px;min-width:0}
-    .label{font-size:11px;color:var(--muted)}.value{font-size:23px;font-weight:750;margin-top:4px;letter-spacing:-.5px}.positive{color:var(--green)}.negative{color:var(--red)}
-    .section{margin:18px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}.section h3{font-size:15px;margin:0}.hint{font-size:11px;color:var(--muted)}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #202c40}.row:last-child{border:0}
-    .asset{display:flex;align-items:center;gap:10px;min-width:0}.coin{width:34px;height:34px;border-radius:11px;background:#202d44;display:grid;place-items:center;font-weight:800;color:#c4d6f5}
-    .asset b{display:block;font-size:13px}.asset small{display:block;color:var(--muted);font-size:11px}
-    .right{text-align:right}.right b{font-size:13px;display:block}.right small{font-size:11px;color:var(--muted)}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-    button{border:0;border-radius:12px;padding:12px 14px;background:var(--green);color:#071710;font-weight:800;font-size:13px;cursor:pointer}
-    button.secondary{background:#24334c;color:#e5edfa;border:1px solid #354763}
-    button.danger{background:#3a1e2a;color:#ff9eaa;border:1px solid #633043}
-    button:disabled{opacity:.45;cursor:not-allowed}
-    input,select{width:100%;background:#0b1322;border:1px solid #30415d;border-radius:10px;padding:12px;color:var(--text);font-size:14px;margin:5px 0 10px}
-    label{font-size:11px;color:var(--muted)}
-    .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .agent{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #202c40}
-    .agent:last-child{border:0}.agent span{font-size:13px}.status{font-size:10px;color:#8bdcbd;background:#143529;border-radius:99px;padding:4px 8px}
-    .notice{border:1px solid #66542d;background:#2a2417;color:#e8d6a9;padding:11px 12px;border-radius:12px;font-size:11px;margin:12px 0}
-    .muted{color:var(--muted)}.empty{text-align:center;padding:18px;color:var(--muted);font-size:12px}
-    footer{text-align:center;color:#687991;font-size:10px;padding:24px 5px}
-    nav{display:flex;gap:7px;overflow:auto;margin:12px 0 16px;padding-bottom:3px}
-    nav a{white-space:nowrap;text-decoration:none;color:#aebbd0;border:1px solid var(--line);padding:8px 11px;border-radius:999px;font-size:11px}
-    nav a:active{background:#253650}
-    @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.hero h2{font-size:30px}}
-  </style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <div class="brand"><div class="logo">B</div><div><h1>BESSA AI TRADER</h1><div class="sub">AUTONOMOUS MARKET INTELLIGENCE</div></div></div>
-    <div class="pill">● PAPER TRADING</div>
-  </header>
-
-  <section class="hero">
-    <div class="eyebrow">CENTRAL DE INTELIGÊNCIA</div>
-    <h2>Seu laboratório de mercado.</h2>
-    <p>Analise, simule e acompanhe estratégias sem arriscar dinheiro real. Esta versão não conecta a corretoras.</p>
-    <nav><a href="#overview">Visão geral</a><a href="#market">Mercado</a><a href="#trade">Simulador</a><a href="#agents">Agentes IA</a><a href="#history">Histórico</a></nav>
-  </section>
-
-  <section id="overview">
-    <div class="grid">
-      <div class="card"><div class="label">Saldo virtual</div><div class="value" id="cash">R$ 10.000,00</div><div class="hint">Capital fictício</div></div>
-      <div class="card"><div class="label">Patrimônio total</div><div class="value" id="equity">R$ 10.000,00</div><div class="hint">Caixa + posições</div></div>
-      <div class="card"><div class="label">Resultado simulado</div><div class="value" id="pnl">R$ 0,00</div><div class="hint">Desde o início</div></div>
-      <div class="card"><div class="label">Operações concluídas</div><div class="value" id="trades">0</div><div class="hint">Compra e venda</div></div>
-    </div>
-  </section>
-
-  <div class="layout">
-    <main>
-      <section class="card" id="market">
-        <div class="section"><h3>Radar de mercado</h3><span class="hint" id="updated">Dados demonstrativos</span></div>
-        <div id="marketRows"></div>
-        <div class="hint">Cotações ilustrativas para testar a interface; não são preços ao vivo.</div>
-      </section>
-
-      <section class="card" id="trade" style="margin-top:14px">
-        <div class="section"><h3>Simulador de operações</h3><span class="pill">SEM DINHEIRO REAL</span></div>
-        <div class="formgrid">
-          <div><label for="symbol">Ativo</label><select id="symbol"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="SOL">Solana (SOL)</option><option value="BOVA11">ETF BOVA11</option></select></div>
-          <div><label for="quantity">Quantidade</label><input id="quantity" type="number" min="0.000001" step="any" value="0.001"></div>
-        </div>
-        <div class="hint" id="estimate">Valor estimado: —</div>
-        <div class="actions"><button id="buy">Comprar simulado</button><button class="secondary" id="sell">Vender posição</button></div>
-        <div class="notice">Simulação didática. Preços ilustrativos, sem taxas, spread ou slippage reais. Não use este resultado como previsão de rentabilidade.</div>
-      </section>
-    </main>
-
-    <aside>
-      <section class="card" id="agents">
-        <div class="section"><h3>Central de agentes</h3><span class="hint">Módulos conceituais</span></div>
-        <div class="agent"><span>01 · Radar de oportunidades</span><b class="status">Interface</b></div>
-        <div class="agent"><span>02 · Analista técnico</span><b class="status">Interface</b></div>
-        <div class="agent"><span>03 · Analista fundamentalista</span><b class="status">Planejado</b></div>
-        <div class="agent"><span>04 · Monitor de notícias</span><b class="status">Planejado</b></div>
-        <div class="agent"><span>05 · Quantitativo</span><b class="status">Planejado</b></div>
-        <div class="agent"><span>06 · Estrategista</span><b class="status">Planejado</b></div>
-        <div class="agent"><span>07 · Gestor de risco</span><b class="status">Regras básicas</b></div>
-        <div class="agent"><span>08 · Auditor</span><b class="status">Histórico local</b></div>
-      </section>
-
-      <section class="card" id="history" style="margin-top:14px">
-        <div class="section"><h3>Histórico de operações</h3><button class="danger" id="reset" style="padding:7px 9px;font-size:10px">Zerar simulação</button></div>
-        <div id="historyRows" class="empty">Nenhuma operação realizada.</div>
-      </section>
-    </aside>
-  </div>
-  <footer>BESSA AI TRADER · V1.0 · Ambiente demonstrativo local · Não é recomendação de investimento.</footer>
-</div>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090e1b"><meta name="description" content="BESSA AI TRADER — cotações reais e trading simulado.">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>BESSA AI TRADER V2</title>
+<style>
+:root{--bg:#090e1b;--panel:#111a2c;--panel2:#172238;--line:#26344d;--muted:#93a4bd;--text:#f3f6fc;--green:#35d39a;--red:#ff667d;--gold:#d8b66a;--blue:#72a9ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b2a49 0%,var(--bg) 55%);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:16px 13px 42px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:5px 0 17px}.brand{display:flex;gap:10px;align-items:center}.logo{width:43px;height:43px;border:1px solid #927c4e;border-radius:13px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:19px;background:linear-gradient(145deg,#20283a,#0d1423)}h1{font-size:16px;letter-spacing:1px;margin:0}.sub{font-size:9px;letter-spacing:1.1px;color:var(--muted)}.pill{border:1px solid #276e59;color:#73e2b6;background:#103328;padding:6px 9px;border-radius:99px;font-size:10px;white-space:nowrap}
+.hero,.card{background:linear-gradient(145deg,var(--panel),#0f1727);border:1px solid var(--line);border-radius:17px;padding:14px;margin-bottom:12px}.hero{background:linear-gradient(120deg,#17243b,#101827);padding:18px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:1.4px;font-weight:800}.hero h2{font-size:23px;margin:6px 0}.muted,.hint{color:var(--muted)}.hero p{margin:0;color:#a9b7cc;font-size:12px}.nav{display:flex;gap:7px;overflow:auto;margin-top:15px}.nav a{white-space:nowrap;text-decoration:none;color:#aebbd0;border:1px solid var(--line);padding:7px 10px;border-radius:99px;font-size:11px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:12px}.metric{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:12px}.label{font-size:10px;color:var(--muted)}.value{font-size:20px;font-weight:800;margin-top:3px}.green{color:var(--green)}.red{color:var(--red)}
+.section{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.section h3{font-size:14px;margin:0}.hint{font-size:10px}
+button,input,select{font:inherit}button{border:0;border-radius:10px;padding:10px 12px;background:var(--green);color:#071710;font-weight:800;font-size:12px;cursor:pointer}button.secondary{background:#24334c;color:#e5edfa;border:1px solid #354763}button:disabled{opacity:.45}
+input,select{background:#0b1322;border:1px solid #30415d;border-radius:10px;padding:10px;color:var(--text);width:100%}label{font-size:10px;color:var(--muted)}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.controls .wide{grid-column:1/-1}
+.tablehead,.coinrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(80px,1fr) minmax(75px,.8fr);gap:8px;align-items:center}.tablehead{font-size:9px;color:var(--muted);padding:7px 3px;border-bottom:1px solid var(--line)}.coinrow{padding:10px 3px;border-bottom:1px solid #202c40}.coinrow:last-child{border:0}.coinname{display:flex;align-items:center;gap:8px;min-width:0}.coinname img{width:25px;height:25px;border-radius:50%;background:#25344c}.coinname b{font-size:11px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.coinname small{font-size:9px;color:var(--muted)}.num{text-align:right;font-size:11px;font-weight:650}.change{text-align:right;font-size:10px}.positive{color:var(--green)}.negative{color:var(--red)}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.notice{border:1px solid #66542d;background:#2a2417;color:#e8d6a9;padding:10px;border-radius:11px;font-size:10px;margin-top:10px}.row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #202c40;font-size:11px}.row:last-child{border:0}.agent{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #202c40;font-size:11px}.status{font-size:9px;color:#d7c28f}.empty{text-align:center;padding:18px;color:var(--muted);font-size:11px}.smallbtn{padding:7px 9px;font-size:10px}footer{text-align:center;color:#687991;font-size:9px;padding:20px 5px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.layout{display:grid;grid-template-columns:1.3fr .7fr;gap:12px}.hero h2{font-size:29px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand"><div class="logo">B</div><div><h1>BESSA AI TRADER</h1><div class="sub">AUTONOMOUS MARKET INTELLIGENCE · V2.0</div></div></div><span class="pill">● PAPER TRADING</span></header>
+<section class="hero"><div class="eyebrow">VERSÃO 2.0 · RADAR AO VIVO</div><h2>Mercado real. Dinheiro fictício.</h2><p>Cotações públicas de criptoativos em BRL. Compras e vendas continuam exclusivamente simuladas.</p><div class="nav"><a href="#overview">Painel</a><a href="#radar">Radar</a><a href="#trade">Simulador</a><a href="#agents">Agentes</a><a href="#history">Histórico</a></div></section>
+<section id="overview" class="grid">
+<div class="metric"><div class="label">Saldo virtual</div><div class="value" id="cash">R$ 10.000,00</div><div class="hint">Capital fictício</div></div>
+<div class="metric"><div class="label">Patrimônio virtual</div><div class="value" id="equity">R$ 10.000,00</div><div class="hint">Caixa + posições marcadas a mercado</div></div>
+<div class="metric"><div class="label">Resultado não realizado + realizado</div><div class="value" id="pnl">R$ 0,00</div><div class="hint">Desde o início</div></div>
+<div class="metric"><div class="label">Operações</div><div class="value" id="trades">0</div><div class="hint">Simuladas</div></div></section>
+<div class="layout"><main>
+<section class="card" id="radar"><div class="section"><h3>Radar de criptoativos</h3><span class="hint" id="feedStatus">Aguardando consulta</span></div>
+<div class="controls"><div><label for="search">Buscar ativo</label><input id="search" placeholder="Nome ou símbolo"></div><div><label for="sort">Ordenar por</label><select id="sort"><option value="market_cap_desc">Valor de mercado</option><option value="price_change_percentage_24h_desc">Maior alta 24h</option><option value="price_change_percentage_24h_asc">Maior queda 24h</option><option value="volume_desc">Volume 24h</option></select></div><div><label>Moeda de exibição</label><input value="BRL (R$)" disabled></div><div style="display:flex;align-items:end;gap:6px"><button id="refresh" class="secondary" style="flex:1">Atualizar</button><button id="loadMore" class="secondary" style="flex:1">Carregar mais</button></div></div>
+<div class="tablehead"><span>ATIVO</span><span style="text-align:right">PREÇO</span><span style="text-align:right">24H</span></div><div id="marketRows" class="empty">Toque em Atualizar para carregar o mercado.</div>
+<div class="hint" id="pageInfo" style="margin-top:8px">Fonte: CoinGecko public API. Lista paginada; universo disponível depende da fonte e dos limites de acesso.</div></section>
+<section class="card" id="trade"><div class="section"><h3>Simulador de operações</h3><span class="pill">SEM DINHEIRO REAL</span></div>
+<div class="formgrid"><div><label for="assetSelect">Ativo (carregado no radar)</label><select id="assetSelect"><option value="">Carregue o radar primeiro</option></select></div><div><label for="qty">Quantidade</label><input id="qty" type="number" min="0.00000001" step="any" value="0.001"></div></div>
+<div class="hint" id="tradeEstimate">Preço e valor estimado aparecerão após carregar os ativos.</div><div class="actions"><button id="buy">Comprar simulado</button><button id="sell" class="secondary">Vender posição</button></div>
+<div class="notice">Cotações fornecidas pela API pública CoinGecko e podem atrasar, falhar ou sofrer limites de requisição. Simulação não inclui spread, slippage ou taxas reais. Nenhuma ordem é enviada a corretoras.</div></section>
+</main><aside>
+<section class="card" id="agents"><div class="section"><h3>Central de agentes</h3><span class="hint">V2.0</span></div>
+<div class="agent"><span>01 · Radar de mercado</span><b class="status">Dados reais</b></div><div class="agent"><span>02 · Analista técnico</span><b class="status">Planejado</b></div><div class="agent"><span>03 · Fundamentalista</span><b class="status">Planejado</b></div><div class="agent"><span>04 · Notícias</span><b class="status">Planejado</b></div><div class="agent"><span>05 · Quantitativo</span><b class="status">Planejado</b></div><div class="agent"><span>06 · Estrategista</span><b class="status">Planejado</b></div><div class="agent"><span>07 · Gestor de risco</span><b class="status">Regras básicas</b></div><div class="agent"><span>08 · Auditor</span><b class="status">Histórico local</b></div></section>
+<section class="card" id="history"><div class="section"><h3>Histórico</h3><button id="reset" class="smallbtn" style="background:#3a1e2a;color:#ff9eaa">Zerar</button></div><div id="historyRows" class="empty">Nenhuma operação.</div></section>
+<section class="card"><div class="section"><h3>Posições virtuais</h3></div><div id="positions" class="empty">Nenhuma posição aberta.</div></section>
+</aside></div><footer>BESSA AI TRADER V2.0 · Cotações públicas · Trading simulado · Não é recomendação de investimento.</footer></div>
 <script>
-(() => {
-  const INITIAL = 10000;
-  const seed = {BTC:650000, ETH:22000, SOL:950, BOVA11:135};
-  let prices = {...seed};
-  const fmt = n => n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  const num = n => Number(n).toLocaleString('pt-BR',{maximumFractionDigits:6});
-  let state;
-  try { state = JSON.parse(localStorage.getItem('bessa-paper-v1')) || null; } catch(e) {}
-  if (!state) state = {cash:INITIAL, positions:{}, history:[]};
-  const save = () => localStorage.setItem('bessa-paper-v1', JSON.stringify(state));
-  const valueOf = () => Object.entries(state.positions).reduce((s,[k,q])=>s+(q*prices[k]),0);
-  const total = () => state.cash + valueOf();
-  const pnl = () => total()-INITIAL;
+(()=>{
+const API='https://api.coingecko.com/api/v3/coins/markets';
+const INITIAL=10000, stateKey='bessa-paper-v2';
+const fmt=(n,cur)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:cur.toUpperCase(),maximumFractionDigits:cur==='brl'?2:6}).format(n||0);
+const qtyFmt=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:10});
+let state;try{state=JSON.parse(localStorage.getItem(stateKey))}catch(e){}
+if(!state)state={cash:INITIAL,positions:{},history:[]};
+let coins=[],page=1,loading=false,hasMore=true;
+const save=()=>localStorage.setItem(stateKey,JSON.stringify(state));
+const currency=()=>'brl';
+const coin=id=>coins.find(c=>c.id===id);
+const price=id=>{const c=coin(id);return c?Number(c.current_price):null};
+const fmtCash=n=>fmt(n,'brl');
+function portfolioValue(){return Object.entries(state.positions).reduce((s,[id,p])=>s+p.qty*(price(id)??p.lastPrice??0),0)}
+function renderStats(){let total=state.cash+portfolioValue();document.getElementById('cash').textContent=fmtCash(state.cash);document.getElementById('equity').textContent=fmtCash(total);let pnl=total-INITIAL;let el=document.getElementById('pnl');el.textContent=fmtCash(pnl);el.className='value '+(pnl>=0?'green':'red');document.getElementById('trades').textContent=state.history.length}
+function renderMarket(){
+ const term=document.getElementById('search').value.toLowerCase().trim(), sort=document.getElementById('sort').value;
+ let arr=coins.filter(c=>(c.name+' '+c.symbol).toLowerCase().includes(term));
+ if(sort==='price_change_percentage_24h_desc')arr.sort((a,b)=>(b.price_change_percentage_24h||-999)-(a.price_change_percentage_24h||-999));
+ else if(sort==='price_change_percentage_24h_asc')arr.sort((a,b)=>(a.price_change_percentage_24h||999)-(b.price_change_percentage_24h||999));
+ else if(sort==='volume_desc')arr.sort((a,b)=>(b.total_volume||0)-(a.total_volume||0));
+ else arr.sort((a,b)=>(b.market_cap||0)-(a.market_cap||0));
+ document.getElementById('marketRows').innerHTML=arr.length?arr.map(c=>{
+ let p=c.current_price;
+ let pct=c.price_change_percentage_24h;
+ return `<div class="coinrow"><div class="coinname">${c.image?`<img src="${c.image}" alt="" loading="lazy">`:'<span>●</span>'}<div><b>${c.name}</b><small>${c.symbol.toUpperCase()} · #${c.market_cap_rank||'—'}</small></div></div><div class="num">${fmt(p,currency())}</div><div class="change ${pct>=0?'positive':'negative'}">${pct==null?'—':(pct>=0?'+':'')+pct.toFixed(2)+'%'}</div></div>`}).join(''):'<div class="empty">Nenhum ativo encontrado. Tente atualizar ou limpar a busca.</div>';
+ const sel=document.getElementById('assetSelect'),old=sel.value;
+ sel.innerHTML=coins.map(c=>`<option value="${c.id}">${c.name} (${c.symbol.toUpperCase()})</option>`).join('')||'<option value="">Carregue o radar primeiro</option>';
+ if(coins.some(c=>c.id===old))sel.value=old;
+ renderEstimate();renderPositions();renderStats();
+}
+function renderEstimate(){let id=document.getElementById('assetSelect').value,q=Number(document.getElementById('qty').value),p=price(id);document.getElementById('tradeEstimate').textContent=p==null?'Preço indisponível. Atualize o radar.':`Preço: ${fmt(p,currency())} · Valor estimado: ${fmt(p*q,currency())}. O saldo simulado é mantido em reais (BRL).`}
+function renderHistory(){let el=document.getElementById('historyRows');el.innerHTML=state.history.length?[...state.history].reverse().map(t=>`<div class="row"><span><b>${t.side} ${t.symbol}</b><br><span class="hint">${new Date(t.date).toLocaleString('pt-BR')}</span></span><span style="text-align:right">${fmt(t.amount,'brl')}<br><span class="hint">${qtyFmt(t.qty)}</span></span></div>`).join(''):'<div class="empty">Nenhuma operação.</div>'}
+function renderPositions(){let el=document.getElementById('positions'),entries=Object.entries(state.positions);el.innerHTML=entries.length?entries.map(([id,p])=>{let c=coin(id),v=price(id);return `<div class="row"><span><b>${c?c.name:p.name||id}</b><br><span class="hint">${qtyFmt(p.qty)} unidades</span></span><b>${fmt(v==null?p.qty*p.lastPrice:p.qty*v,'brl')}</b></div>`}).join(''):'<div class="empty">Nenhuma posição aberta.</div>'}
+async function loadPage(reset=false){
+ if(loading||(!hasMore&&!reset))return;loading=true;
+ const status=document.getElementById('feedStatus');status.textContent='Consultando CoinGecko…';
+ if(reset){page=1;coins=[];hasMore=true}
+ const cur='brl';
+ try{
+  const url=`${API}?vs_currency=${cur}&order=market_cap_desc&per_page=250&page=${page}&sparkline=false&price_change_percentage=24h`;
+  const res=await fetch(url,{headers:{accept:'application/json'}});
+  if(!res.ok)throw new Error(res.status===429?'Limite temporário de consultas (429). Aguarde e tente novamente.':`Falha da fonte (${res.status}).`);
+  const data=await res.json();if(!Array.isArray(data))throw new Error('Resposta inesperada da fonte.');
+  const mapped=data.map(c=>({...c,current_price_brl:cur==='brl'?c.current_price:null,current_price_usd:cur==='usd'?c.current_price:null}));
+  if(cur==='brl')coins=coins.concat(mapped);else coins=coins.concat(mapped);
+  hasMore=data.length===250;page++;
+  status.textContent=`Atualizado ${new Date().toLocaleTimeString('pt-BR')} · ${coins.length} ativos`;
+  document.getElementById('pageInfo').textContent=`Fonte: CoinGecko · ${coins.length} ativos carregados nesta moeda. Use “Carregar mais” para buscar a próxima página. A cobertura depende da disponibilidade e dos limites da API.`;
+  renderMarket();
+ }catch(e){status.textContent='Não foi possível atualizar';document.getElementById('marketRows').innerHTML=`<div class="empty">${e.message}<br>Verifique a conexão e tente novamente mais tarde.</div>`}
+ finally{loading=false}
+}
+function trade(side){
+ const id=document.getElementById('assetSelect').value,c=coin(id),q=Number(document.getElementById('qty').value),p=price(id);
+ if(!c||!Number.isFinite(q)||q<=0||p==null){alert('Selecione um ativo carregado e uma quantidade válida.');return}
+ 
+ const amount=q*p,held=state.positions[id]?.qty||0;
+ if(side==='COMPRA'){if(amount>state.cash){alert('Saldo virtual insuficiente.');return}state.cash-=amount;let old=state.positions[id]||{qty:0,name:c.name,lastPrice:p};old.qty+=q;old.lastPrice=p;old.name=c.name;state.positions[id]=old}
+ else{if(q>held){alert('Quantidade maior que a posição virtual disponível.');return}state.cash+=amount;state.positions[id].qty-=q;if(state.positions[id].qty<1e-12)delete state.positions[id]}
+ state.history.push({side,symbol:c.symbol.toUpperCase(),id,qty:q,amount,date:new Date().toISOString()});save();renderHistory();renderMarket();
+}
+document.getElementById('refresh').onclick=()=>loadPage(true);
+document.getElementById('loadMore').onclick=()=>loadPage(false);
+document.getElementById('search').oninput=renderMarket;
+document.getElementById('sort').onchange=renderMarket;
 
-  function renderMarket(){
-    document.getElementById('marketRows').innerHTML = Object.entries(prices).map(([k,v])=>`
-      <div class="row"><div class="asset"><div class="coin">${k.slice(0,1)}</div><div><b>${k}</b><small>Preço demonstrativo</small></div></div><div class="right"><b>${fmt(v)}</b><small class="muted">Simulado</small></div></div>`).join('');
-  }
-  function render(){
-    document.getElementById('cash').textContent=fmt(state.cash);
-    document.getElementById('equity').textContent=fmt(total());
-    const p=document.getElementById('pnl'); p.textContent=fmt(pnl()); p.className='value '+(pnl()>=0?'positive':'negative');
-    document.getElementById('trades').textContent=state.history.length;
-    const sym=document.getElementById('symbol').value;
-    document.getElementById('estimate').textContent='Valor estimado: '+fmt(prices[sym]*Number(document.getElementById('quantity').value||0));
-    document.getElementById('historyRows').innerHTML=state.history.length ? [...state.history].reverse().map(t=>`
-      <div class="row"><div><b>${t.side} ${t.symbol}</b><div class="hint">${new Date(t.date).toLocaleString('pt-BR')}</div></div><div class="right"><b>${fmt(t.amount)}</b><small>${num(t.qty)} unidades</small></div></div>`).join('') : '<div class="empty">Nenhuma operação realizada.</div>';
-    renderMarket();
-  }
-  function trade(side){
-    const sym=document.getElementById('symbol').value;
-    const qty=Number(document.getElementById('quantity').value);
-    if(!Number.isFinite(qty)||qty<=0){alert('Informe uma quantidade válida.');return;}
-    const amount=qty*prices[sym];
-    if(side==='COMPRA'){
-      if(amount>state.cash){alert('Saldo virtual insuficiente.');return;}
-      state.cash-=amount; state.positions[sym]=(state.positions[sym]||0)+qty;
-    } else {
-      const held=state.positions[sym]||0;
-      if(qty>held){alert('Você não possui essa quantidade na carteira virtual.');return;}
-      state.cash+=amount; state.positions[sym]=held-qty;
-      if(state.positions[sym]<1e-10) delete state.positions[sym];
-    }
-    state.history.push({side,symbol:sym,qty,amount,date:new Date().toISOString()});
-    save();render();
-  }
-  document.getElementById('buy').addEventListener('click',()=>trade('COMPRA'));
-  document.getElementById('sell').addEventListener('click',()=>trade('VENDA'));
-  document.getElementById('symbol').addEventListener('change',render);
-  document.getElementById('quantity').addEventListener('input',render);
-  document.getElementById('reset').addEventListener('click',()=>{
-    if(confirm('Apagar o histórico e reiniciar o saldo virtual?')){
-      state={cash:INITIAL,positions:{},history:[]};save();render();
-    }
-  });
-  // Pequena oscilação aleatória apenas para demonstrar atualização da interface.
-  // Não representa cotações reais nem estratégia preditiva.
-  render();
-  if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+document.getElementById('assetSelect').onchange=renderEstimate;
+document.getElementById('qty').oninput=renderEstimate;
+document.getElementById('buy').onclick=()=>trade('COMPRA');
+document.getElementById('sell').onclick=()=>trade('VENDA');
+document.getElementById('reset').onclick=()=>{if(confirm('Apagar operações e posições virtuais?')){state={cash:INITIAL,positions:{},history:[]};save();renderHistory();renderMarket()}};
+renderStats();renderHistory();loadPage(true);
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 })();
-</script>
-</body>
-</html>
+</script></body></html>
