@@ -1,19 +1,17 @@
-# BESSA AI TRADER V3.0
+# BESSA AI TRADER V3.1
 
-## V3.0 — Estratégias automáticas em paper trading
-- Radar CoinGecko em BRL e USD.
-- Módulos determinísticos: momentum/tendência, correção, liquidez, score, estratégia, risco e auditoria.
-- Perfil equilibrado inicial.
-- Execução automática opcional: análise imediata e ciclo de 15 minutos enquanto a página estiver aberta.
-- Compra e venda exclusivamente simuladas.
-- Gestão simulada: stop 3,5%, alvo 7%, exposição máxima 45%, até 5 posições, risco de alocação por posição limitado a 7% do patrimônio, limite diário 1,5%.
-- Dados locais no navegador; saldo fictício de R$ 10.000.
+## Correções
+- Migra a carteira local V3 existente sem apagar saldo, posições ou histórico.
+- Não religa a automação sozinha após recarregar.
+- Exibe preço de entrada com até 10 casas decimais, evitando mostrar PEPE como R$ 0,00.
+- Exibe resultado não realizado por posição.
+- Registra preço e taxa fictícia por operação.
+- Taxa simulada: 0,10% por lado.
+- Calcula preço de entrada incluindo taxa simulada de compra.
+- Ao atingir limite diário, bloqueia novas compras, mas continua avaliando e gerenciando posições abertas.
+- Stop e alvo são avaliados quando uma nova consulta de mercado ocorre; não são garantidos em tempo real.
+- Carteira e histórico ficam no armazenamento local do navegador.
 
-## Importante
-Os "agentes" são módulos algorítmicos determinísticos baseados em regras, não agentes de IA generativa nem modelos treinados. Os sinais são heurísticas ilustrativas, não estratégias comprovadas nem recomendação de investimento. Não há backtesting rigoroso, execução real, autenticação, servidor, sincronização ou monitoramento garantido 24/7.
-A automação só roda enquanto a página está aberta e o navegador não suspende a aba. Em celular, o sistema operacional pode pausar a execução.
-O feed público pode sofrer atraso, indisponibilidade e limites HTTP 429. O radar mostra ativos carregados (páginas de 250); o motor analisa os ativos atualmente carregados e prioriza até rank 500 quando disponíveis.
-Nunca publique chaves secretas em JavaScript ou repositório público.
-
-## Atualizar GitHub Pages
-No repositório, substitua `index.html` e `sw.js` pelos arquivos desta versão; opcionalmente substitua `README.md`, `manifest.webmanifest` e `icon.svg`. Faça Commit changes e abra o site com `?v=3` para evitar cache. O service worker usa cache versionado V3.
+## Limitações
+O sistema continua sendo paper trading, sem corretora, sem ordens reais e sem IA generativa. O motor usa regras determinísticas e preços públicos CoinGecko. Automação apenas enquanto a página está aberta e o navegador não suspende a aba. Sem garantia de execução 24/7.
+A taxa de 0,10% é uma hipótese configurável no código, não representa a taxa de uma corretora específica. Slippage e spread não são modelados nesta versão.

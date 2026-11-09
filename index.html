@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e1b"><meta name="description" content="BESSA AI TRADER V3 — estratégias automatizadas em paper trading.">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>BESSA AI TRADER V3</title>
+<title>BESSA AI TRADER V3.1</title>
 <style>
 :root{--bg:#090e1b;--panel:#111a2c;--line:#26344d;--muted:#93a4bd;--text:#f3f6fc;--green:#35d39a;--red:#ff667d;--gold:#d8b66a;--blue:#72a9ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b2a49 0%,var(--bg) 55%);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
@@ -20,8 +20,8 @@ input,select{background:#0b1322;border:1px solid #30415d;border-radius:10px;padd
 @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.layout{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}.hero h2{font-size:29px}}
 </style></head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><div class="logo">B</div><div><h1>BESSA AI TRADER</h1><div class="sub">AUTONOMOUS MARKET INTELLIGENCE · V3.0</div></div></div><span class="pill">● PAPER TRADING</span></header>
-<section class="hero"><div class="eyebrow">V3.0 · QUANT STRATEGY ENGINE</div><h2>Estratégias automáticas. Risco controlado.</h2><p>Agentes baseados em regras analisam cotações públicas e podem operar somente na carteira fictícia.</p><div class="nav"><a href="#overview">Painel</a><a href="#radar">Radar</a><a href="#engine">Motor</a><a href="#agents">Agentes</a><a href="#history">Histórico</a></div></section>
+<header class="top"><div class="brand"><div class="logo">B</div><div><h1>BESSA AI TRADER</h1><div class="sub">AUTONOMOUS MARKET INTELLIGENCE · V3.1</div></div></div><span class="pill">● PAPER TRADING</span></header>
+<section class="hero"><div class="eyebrow">V3.1 · RISK & ACCOUNTING PATCH</div><h2>Estratégias automáticas. Risco auditável.</h2><p>Agentes baseados em regras analisam cotações públicas e podem operar somente na carteira fictícia.</p><div class="nav"><a href="#overview">Painel</a><a href="#radar">Radar</a><a href="#engine">Motor</a><a href="#agents">Agentes</a><a href="#history">Histórico</a></div></section>
 <section id="overview" class="grid">
 <div class="metric"><div class="label">Saldo virtual</div><div class="value" id="cash">R$ 10.000,00</div><div class="hint">Capital fictício</div></div>
 <div class="metric"><div class="label">Patrimônio virtual</div><div class="value" id="equity">R$ 10.000,00</div><div class="hint">Caixa + posições</div></div>
@@ -33,7 +33,7 @@ input,select{background:#0b1322;border:1px solid #30415d;border-radius:10px;padd
 <div class="controls"><div><label for="riskMode">Perfil</label><select id="riskMode"><option value="balanced">Equilibrado</option><option value="conservative">Conservador</option><option value="aggressive">Agressivo (simulado)</option></select></div><div><label for="maxPositions">Máx. posições abertas</label><select id="maxPositions"><option>3</option><option selected>5</option><option>8</option></select></div></div>
 <div class="grid" style="margin-bottom:5px"><div class="metric"><div class="label">Exposição atual</div><div class="value" id="exposure">R$ 0,00</div></div><div class="metric"><div class="label">Perda diária</div><div class="value" id="dailyLoss">R$ 0,00</div></div></div>
 <div class="actions"><button id="runNow">Executar análise agora</button><button id="pause" class="secondary">Pausar motor</button></div>
-<div class="notice">Automação funciona somente enquanto esta página permanece aberta e conectada. O navegador pode suspender tarefas em segundo plano. Nenhuma ordem real é enviada.</div>
+<div class="notice">Automação funciona somente enquanto esta página permanece aberta e conectada. O navegador pode suspender tarefas em segundo plano. Nenhuma ordem real é enviada. Taxa fictícia configurada: 0,10% por compra ou venda.</div>
 <div class="section" style="margin-top:14px"><h3>Decisões recentes</h3><span class="hint" id="engineStatus">Aguardando dados</span></div><div id="signals"><div class="empty">Carregue o radar para iniciar a análise.</div></div></section>
 <section class="card" id="radar"><div class="section"><h3>Radar de criptoativos</h3><span class="hint" id="feedStatus">Aguardando consulta</span></div>
 <div class="controls"><div><label for="search">Buscar ativo</label><input id="search" placeholder="Nome ou símbolo"></div><div><label for="sort">Ordenar por</label><select id="sort"><option value="market_cap_desc">Valor de mercado</option><option value="price_change_percentage_24h_desc">Maior alta 24h</option><option value="price_change_percentage_24h_asc">Maior queda 24h</option><option value="volume_desc">Volume 24h</option></select></div><div><label for="currency">Moeda</label><select id="currency"><option value="brl">BRL (R$)</option><option value="usd">USD ($)</option></select></div><div style="display:flex;align-items:end;gap:6px"><button id="refresh" class="secondary" style="flex:1">Atualizar</button><button id="loadMore" class="secondary" style="flex:1">Carregar mais</button></div></div>
@@ -44,13 +44,18 @@ input,select{background:#0b1322;border:1px solid #30415d;border-radius:10px;padd
 <div class="notice">Estes agentes são módulos algorítmicos determinísticos, não modelos de IA generativa. Eles aplicam regras explícitas e não aprendem sozinhos.</div></section>
 <section class="card"><div class="section"><h3>Posições virtuais</h3></div><div id="positions" class="empty">Nenhuma posição aberta.</div></section>
 <section class="card" id="history"><div class="section"><h3>Histórico</h3><button id="reset" class="smallbtn danger">Zerar simulação</button></div><div id="historyRows" class="empty">Nenhuma operação.</div></section>
-</aside></div><footer>BESSA AI TRADER V3.0 · Paper trading · Sem conexão com corretoras · Não é recomendação de investimento.</footer></div>
+</aside></div><footer>BESSA AI TRADER V3.1 · Paper trading · Sem conexão com corretoras · Não é recomendação de investimento.</footer></div>
 <script>
 (()=>{
-const API='https://api.coingecko.com/api/v3/coins/markets', KEY='bessa-paper-v3', INITIAL=10000, CYCLE=15*60*1000;
-const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2}).format(n||0), qfmt=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:8});
+const API='https://api.coingecko.com/api/v3/coins/markets', KEY='bessa-paper-v3.1', OLD_KEY='bessa-paper-v3', INITIAL=10000, CYCLE=15*60*1000, FEE_RATE=0.001;
+const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2}).format(n||0), priceFmt=n=>new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:10}).format(n||0), qfmt=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:10});
 let state;try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!state){
+ try{state=JSON.parse(localStorage.getItem(OLD_KEY))}catch(e){}
+ if(state){state.realized=Number(state.realized||0);state.dayStart=Number(state.dayStart||INITIAL);state.dayKey=state.dayKey||new Date().toISOString().slice(0,10);state.auto=false;state.lastCycle=0;Object.values(state.positions||{}).forEach(p=>{p.entry=Number(p.entry||p.lastPrice||0);p.lastPrice=Number(p.lastPrice||p.entry);p.qty=Number(p.qty||0)});}
+}
 if(!state)state={cash:INITIAL,positions:{},history:[],realized:0,dayStart:INITIAL,dayKey:new Date().toISOString().slice(0,10),auto:false,lastCycle:0};
+state.auto=false; // Never resume automation automatically after reload.
 let coins=[],page=1,hasMore=true,loading=false,timer=null,signals=[];
 const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
 const cur=()=> $('currency').value;
@@ -65,8 +70,8 @@ function renderMarket(){let term=$('search').value.toLowerCase().trim(),arr=coin
 if(s==='price_change_percentage_24h_desc')arr.sort((a,b)=>(b.price_change_percentage_24h||-999)-(a.price_change_percentage_24h||-999));else if(s==='price_change_percentage_24h_asc')arr.sort((a,b)=>(a.price_change_percentage_24h||999)-(b.price_change_percentage_24h||999));else if(s==='volume_desc')arr.sort((a,b)=>(b.total_volume||0)-(a.total_volume||0));else arr.sort((a,b)=>(b.market_cap||0)-(a.market_cap||0));
 $('marketRows').innerHTML=arr.length?arr.map(c=>`<div class="coinrow"><div class="coinname"><img src="${c.image||''}" alt="" loading="lazy"><div><b>${c.name}</b><small>${c.symbol.toUpperCase()} · #${c.market_cap_rank||'—'}</small></div></div><div class="num">${new Intl.NumberFormat('pt-BR',{style:'currency',currency:cur().toUpperCase(),maximumFractionDigits:cur()==='brl'?2:6}).format(cur()==='brl'?c.current_price:c.current_price_usd||0)}</div><div class="change ${(c.price_change_percentage_24h||0)>=0?'green':'red'}">${c.price_change_percentage_24h==null?'—':(c.price_change_percentage_24h>=0?'+':'')+c.price_change_percentage_24h.toFixed(2)+'%'}</div></div>`).join(''):'<div class="empty">Sem ativos carregados. Atualize o radar.</div>';
 renderPositions();stats();}
-function renderPositions(){$('positions').innerHTML=Object.entries(state.positions).length?Object.entries(state.positions).map(([id,p])=>{let c=getCoin(id),v=px(id)??p.lastPrice;return `<div class="row"><span><b>${c?.name||p.name||id}</b><br><span class="hint">${qfmt(p.qty)} unidades · entrada ${money(p.entry)}</span></span><b>${money(v*p.qty)}</b></div>`}).join(''):'<div class="empty">Nenhuma posição aberta.</div>'}
-function renderHistory(){$('historyRows').innerHTML=state.history.length?[...state.history].reverse().slice(0,30).map(t=>`<div class="row"><span><b>${t.side} ${t.symbol}</b><br><span class="hint">${t.reason} · ${new Date(t.date).toLocaleString('pt-BR')}</span></span><span style="text-align:right">${money(t.amount)}<br><span class="hint">${qfmt(t.qty)}</span></span></div>`).join(''):'<div class="empty">Nenhuma operação simulada.</div>'}
+function renderPositions(){$('positions').innerHTML=Object.entries(state.positions).length?Object.entries(state.positions).map(([id,p])=>{let c=getCoin(id),v=px(id)??p.lastPrice,unreal=(v-p.entry)*p.qty;return `<div class="row"><span><b>${c?.name||p.name||id}</b><br><span class="hint">${qfmt(p.qty)} unidades · entrada R$ ${priceFmt(p.entry)} · atual R$ ${priceFmt(v)}<br>Resultado: <span class="${unreal>=0?'green':'red'}">${money(unreal)}</span></span></span><b>${money(v*p.qty)}</b></div>`}).join(''):'<div class="empty">Nenhuma posição aberta.</div>'}
+function renderHistory(){$('historyRows').innerHTML=state.history.length?[...state.history].reverse().slice(0,30).map(t=>`<div class="row"><span><b>${t.side} ${t.symbol}</b><br><span class="hint">${t.reason} · preço R$ ${priceFmt(t.price||0)} · taxa ${money(t.fee||0)} · ${new Date(t.date).toLocaleString('pt-BR')}</span></span><span style="text-align:right">${money(t.amount)}<br><span class="hint">${qfmt(t.qty)}</span></span></div>`).join(''):'<div class="empty">Nenhuma operação simulada.</div>'}
 async function load(reset=false){if(loading||(!hasMore&&!reset))return;loading=true;$('feedStatus').textContent='Consultando CoinGecko…';if(reset){page=1;coins=[];hasMore=true}
 try{let url=`${API}?vs_currency=${cur()}&order=market_cap_desc&per_page=250&page=${page}&sparkline=false&price_change_percentage=24h%2C7d%2C30d`;
 let r=await fetch(url,{headers:{accept:'application/json'}});if(!r.ok)throw Error(r.status===429?'Limite da API (429). Aguarde alguns minutos.':`Fonte respondeu ${r.status}.`);let d=await r.json();if(!Array.isArray(d))throw Error('Resposta inválida da fonte.');
@@ -81,26 +86,27 @@ let liquidity=liq>0.03?1:liq>0.01?0.5:0;
 let correction=(d1< -2&&d7>1&&d30>0)?1:0;
 return {score:trend+momentum+liquidity+correction,d1,d7,d30,liq,trend,correction};}
 function riskLimits(){let mode=$('riskMode').value;return mode==='conservative'?{maxExposure:.25,perTrade:.04,maxPositions:3,stop:.025,take:.05,daily:.01,minScore:3.2}:mode==='aggressive'?{maxExposure:.65,perTrade:.10,maxPositions:8,stop:.05,take:.10,daily:.025,minScore:2.2}:{maxExposure:.45,perTrade:.07,maxPositions:5,stop:.035,take:.07,daily:.015,minScore:2.8}}
-function log(side,c,qty,amount,reason){state.history.push({side,id:c.id,symbol:c.symbol.toUpperCase(),qty,amount,reason,date:new Date().toISOString()})}
-function sellPosition(id,c,reason){let p=state.positions[id];if(!p||!c)return;let price=c.current_price_brl,amount=price*p.qty;state.cash+=amount;state.realized+=(price-p.entry)*p.qty;log('VENDA',c,p.qty,amount,reason);delete state.positions[id];}
+function log(side,c,qty,amount,reason,price,fee){state.history.push({side,id:c.id,symbol:c.symbol.toUpperCase(),qty,amount,reason,price,fee,date:new Date().toISOString()})}
+function sellPosition(id,c,reason){let p=state.positions[id];if(!p||!c)return;let price=Number(c.current_price_brl);if(!(price>0))return;let gross=price*p.qty,fee=gross*FEE_RATE,net=gross-fee;state.cash+=net;state.realized+=(net-(p.entry*p.qty));log('VENDA',c,p.qty,net,reason,price,fee);delete state.positions[id];}
 function runEngine(){
  if(!coins.length){$('engineStatus').textContent='Sem dados';return}
  let lim=riskLimits(),eq=equity(),dailyLoss=Math.max(0,state.dayStart-eq),maxDaily=state.dayStart*lim.daily,notes=[];
  $('a1').textContent='Varredura concluída';$('a2').textContent='Momentum calculado';$('a3').textContent='Correções avaliadas';$('a4').textContent='Liquidez avaliada';$('a5').textContent='Score calculado';$('a6').textContent='Regras aplicadas';
- if(dailyLoss>=maxDaily){$('engineStatus').textContent='Bloqueado: limite diário';$('signals').innerHTML='<div class="signal"><b>Proteção acionada</b><small>Limite diário de perda simulado atingido. Novas compras bloqueadas.</small></div>';return}
- // Manage existing positions first: protective stop/take profit or negative trend exit.
- for(let [id,p] of Object.entries({...state.positions})){let c=getCoin(id);if(!c)continue;let current=c.current_price_brl,ret=(current-p.entry)/p.entry,s=score(c);if(ret<=-lim.stop)sellPosition(id,c,'Stop simulado');else if(ret>=lim.take)sellPosition(id,c,'Alvo simulado');else if(s.score<0.2&&s.d1<0)sellPosition(id,c,'Sinal de saída');}
- eq=equity();let maxPos=Math.min(Number($('maxPositions').value),lim.maxPositions);
+ // Sempre gerencia posições existentes primeiro, mesmo se o limite diário bloquear novas entradas.
+ for(let [id,p] of Object.entries({...state.positions})){let c=getCoin(id);if(!c||!(c.current_price_brl>0))continue;let current=Number(c.current_price_brl),ret=(current-p.entry)/p.entry,s=score(c);p.lastPrice=current;if(ret<=-lim.stop)sellPosition(id,c,'Stop simulado');else if(ret>=lim.take)sellPosition(id,c,'Alvo simulado');else if(s.score<0.2&&s.d1<0)sellPosition(id,c,'Sinal de saída');}
+ eq=equity();dailyLoss=Math.max(0,state.dayStart-eq);let dailyBlocked=dailyLoss>=maxDaily;let maxPos=Math.min(Number($('maxPositions').value),lim.maxPositions);
+ if(cur()!=='brl'){$('engineStatus').textContent='Selecione BRL para operar no simulador';$('signals').innerHTML='<div class="signal"><b>Motor aguardando BRL</b><small>O radar pode ser consultado em USD, mas a carteira simulada é contabilizada em reais.</small></div>';stats();return}
  let candidates=coins.filter(c=>c.current_price_brl>0&&c.market_cap_rank&&c.market_cap_rank<=500&&c.total_volume>0).map(c=>({c,s:score(c)})).sort((a,b)=>b.s.score-a.s.score);
  for(let {c,s} of candidates.slice(0,12)){
   let existing=state.positions[c.id];
   let action='AGUARDAR',reason=`Score ${s.score.toFixed(2)} · 24h ${s.d1.toFixed(2)}% · 7d ${s.d7.toFixed(2)}%`;
-  if(!existing&&s.score>=lim.minScore&&Object.keys(state.positions).length<maxPos){
-   let currentExposure=exposure(),maxAllowed=eq*lim.maxExposure,notional=Math.min(eq*lim.perTrade,maxAllowed-currentExposure,state.cash);
-   if(notional>=50){let qty=notional/c.current_price_brl;state.cash-=notional;state.positions[c.id]={qty,entry:c.current_price_brl,lastPrice:c.current_price_brl,name:c.name,opened:new Date().toISOString()};log('COMPRA',c,qty,notional,'Entrada automática · '+reason);action='COMPRA SIMULADA';}
+  if(!dailyBlocked&&!existing&&s.score>=lim.minScore&&Object.keys(state.positions).length<maxPos){
+   let currentExposure=exposure(),maxAllowed=eq*lim.maxExposure,notional=Math.min(eq*lim.perTrade,maxAllowed-currentExposure,state.cash/(1+FEE_RATE));
+   if(notional>=50){let qty=notional/c.current_price_brl,fee=notional*FEE_RATE,totalDebit=notional+fee;state.cash-=totalDebit;let entry=totalDebit/qty;state.positions[c.id]={qty,entry,lastPrice:c.current_price_brl,name:c.name,opened:new Date().toISOString()};log('COMPRA',c,qty,totalDebit,'Entrada automática · '+reason,c.current_price_brl,fee);action='COMPRA SIMULADA';}
   }
   notes.push({name:c.name,symbol:c.symbol.toUpperCase(),score:s.score,action,reason});
  }
+ if(dailyBlocked)notes.unshift({name:'Proteção diária',symbol:'RISCO',score:0,action:'COMPRAS BLOQUEADAS',reason:'Limite diário atingido; gerenciamento e saídas continuam ativos.'});
  signals=notes.slice(0,8);$('signals').innerHTML=signals.length?signals.map(n=>`<div class="signal"><div style="display:flex;justify-content:space-between;gap:6px"><b>${n.name} (${n.symbol})</b><span class="tag ${n.action.startsWith('COMPRA')?'buy':'wait'}">${n.action}</span></div><small>${n.reason}</small></div>`).join(''):'<div class="empty">Nenhum sinal neste ciclo.</div>';
  state.lastCycle=Date.now();save();renderHistory();renderMarket();$('engineStatus').textContent='Análise concluída '+new Date().toLocaleTimeString('pt-BR');
 }

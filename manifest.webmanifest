@@ -1,8 +1,8 @@
 {
-  "name": "BESSA AI TRADER",
+  "name": "BESSA AI TRADER V3.1",
   "short_name": "BESSA TRADER",
-  "description": "Estratégias automatizadas em paper trading",
-  "start_url": "./",
+  "description": "Paper trading com regras de risco e contabilidade aprimoradas",
+  "start_url": "./?v=31",
   "display": "standalone",
   "background_color": "#090e1b",
   "theme_color": "#0b1020",
